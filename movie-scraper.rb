@@ -32,11 +32,6 @@ class Movie_Scraper
     @@all
   end
 
-  end
-
-
-
-
 
 
 end
