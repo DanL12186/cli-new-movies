@@ -12,19 +12,18 @@ class Movie_Scraper
   def self.namescrape #div.panel.each do
     page = Nokogiri::HTML(open('http://www.movieinsider.com/movies/coming-soon')) #movieinsider/new-movies main
 
-    page.css('div.panel').collect do |mov| #collect from each 'moov resource'
-      movie = Movie_Scraper.new() #will of course have to change this to NewMovies::Movie_Scraper later
+    page.css('div.panel').each do |mov|
+      movie = NewMovies::Movie_Scraper.new()
 
       movie.name     =  mov.css('h4.media-heading a').text.strip.split("  ").join #grabs names.to_a ["Harry Potter", "Serenity"]
       movie.starring =  mov.css('p.credits').text.strip.split("   ") #should probably try to isolate these as individual names in array
-      movie.summary  =  mov.css('div.show-more-hidden p.media-content').text.strip.split("  ").join #.mpaa #grabs movie summaries
+      movie.summary  =  mov.css('div.show-more-hidden p.media-content').text.strip.split("  ").join #grabs movie summaries
       movie.genre    =  mov.css('p span.label').text.strip
       movie.rating   =  mov.css('ins.mpaa').to_s.scan(/\d/).join #mpaa rating
 
       movie.mpaa #calls mpaa method and converts all ratings from nums==> ratings
-
-      movie #Returns collected array, I believe. Only just realized I did this..
     end
+   self.all
   end
 
   def mpaa #would prefer to map to a hash if I knew how.
@@ -52,5 +51,3 @@ class Movie_Scraper
   end
 
 end
-
-#end
