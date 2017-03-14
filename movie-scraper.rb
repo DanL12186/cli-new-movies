@@ -21,7 +21,29 @@ class Movie_Scraper
       movie.genre    =  mov.css('p span.label').text.strip
       movie.rating   =  mov.css('ins.mpaa').to_s.scan(/\d+/).join.to_i #(mpaa rating); probably doesn't need to be converted to an int here actually(or +)
 
+      movie.mpaa #calls mpaa method and converts all ratings from nums==> ratings
+
       movie #Returns collected array, I believe. Only just realized I did this..
+    end
+  end
+
+  def mpaa
+    @@all.each do |mov|
+      if mov.rating == 0
+        mov.rating = "No rating available"
+      elsif mov.rating == 1
+        mov.rating = "G"
+      elsif mov.rating == 2
+        mov.rating = "PG"
+      elsif mov.rating == 3
+        mov.rating = "PG-13"
+      elsif mov.rating == 4
+        mov.rating = "R"
+      elsif mov.rating == 6
+        mov.rating = "Unrated"
+      else
+        mov.rating = mov.rating
+      end
     end
   end
 
@@ -30,3 +52,5 @@ class Movie_Scraper
   end
 
 end
+
+#end
