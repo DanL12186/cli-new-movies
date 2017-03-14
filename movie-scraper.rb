@@ -16,10 +16,10 @@ class Movie_Scraper
       movie = Movie_Scraper.new() #will of course have to change this to NewMovies::Movie_Scraper later
 
       movie.name     =  mov.css('h4.media-heading a').text.strip.split("  ").join #grabs names.to_a ["Harry Potter", "Serenity"]
-      movie.starring =  mov.css('p.credits').text.strip.split("   ") #isolates actors by groups (actors per movie)
+      movie.starring =  mov.css('p.credits').text.strip.split("   ") #should probably try to isolate these as individual names in array
       movie.summary  =  mov.css('div.show-more-hidden p.media-content').text.strip.split("  ").join #.mpaa #grabs movie summaries
       movie.genre    =  mov.css('p span.label').text.strip
-      movie.rating   =  mov.css('ins.mpaa').to_s.scan(/\d+/).join.to_i #(mpaa rating); probably doesn't need to be converted to an int here actually(or +)
+      movie.rating   =  mov.css('ins.mpaa').to_s.scan(/\d/).join #mpaa rating
 
       movie.mpaa #calls mpaa method and converts all ratings from nums==> ratings
 
@@ -27,19 +27,19 @@ class Movie_Scraper
     end
   end
 
-  def mpaa
+  def mpaa #would prefer to map to a hash if I knew how.
     @@all.each do |mov|
-      if mov.rating == 0
+      if mov.rating.empty? #class-specific. blank didn't work. works for empty strings.
         mov.rating = "No rating available"
-      elsif mov.rating == 1
+      elsif mov.rating == '1'
         mov.rating = "G"
-      elsif mov.rating == 2
+      elsif mov.rating == '2'
         mov.rating = "PG"
-      elsif mov.rating == 3
+      elsif mov.rating == '3'
         mov.rating = "PG-13"
-      elsif mov.rating == 4
+      elsif mov.rating == '4'
         mov.rating = "R"
-      elsif mov.rating == 6
+      elsif mov.rating == '6'
         mov.rating = "Unrated"
       else
         mov.rating = mov.rating
