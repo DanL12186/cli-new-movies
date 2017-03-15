@@ -19,21 +19,24 @@ class NewMovies::CLI
     input = nil
     puts
     puts "Enter the number of the movie you want more info on, or type 'exit' to quit."
-
+    puts
     until input == "exit"
     input = gets.strip.downcase
-    mov = movie_list[input.to_i - 1] #rn input is, e.g., 2 ("3" => 2)
-    #binding.pry
+
+    mov = NewMovies::Movie_Scraper.all[input.to_i - 1] #rn input is, e.g., 2 ("3" => 2)
+
     puts
     puts "#{mov.name} (#{mov.genre}) - Starring: #{mov.starring} \n\nSummary: #{mov.summary}."
     puts
+
     if mov.rating == "No rating available"
       puts mov.rating
     else
       puts "Rated #{mov.rating}"
     end
+
     puts
-    puts "Would you like to see another movie? Enter its number here."
+    puts "Would you like to see another movie? Enter its number here:"
     puts
     end
   end
