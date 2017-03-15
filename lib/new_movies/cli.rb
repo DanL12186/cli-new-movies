@@ -25,10 +25,16 @@ class NewMovies::CLI
     mov = movie_list[input.to_i - 1] #rn input is, e.g., 2 ("3" => 2)
     #binding.pry
     puts
-    puts "#{mov.name} (#{mov.genre}) - Starring: #{mov.starring.join} \n\nSummary: #{mov.summary}."
+    puts "#{mov.name} (#{mov.genre}) - Starring: #{mov.starring} \n\nSummary: #{mov.summary}."
     puts
+    if mov.rating == "No rating available"
+      puts mov.rating
+    else
+      puts "Rated #{mov.rating}"
+    end
     puts
-    puts "Would you like to see another movie?"
+    puts "Would you like to see another movie? Enter its number here."
+    puts
     end
   end
 end
