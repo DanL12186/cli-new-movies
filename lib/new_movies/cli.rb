@@ -22,9 +22,13 @@ class NewMovies::CLI
 
     until input == "exit"
     input = gets.strip.downcase
-
+    mov = movie_list[input.to_i - 1] #rn input is, e.g., 2 ("3" => 2)
+    #binding.pry
     puts
-    puts "#{mov.name} (#{mov.genre}) \nStarring: #{mov.starring} \n\nSummary: #{mov.summary}."
+    puts "#{mov.name} (#{mov.genre}) - Starring: #{mov.starring.join} \n\nSummary: #{mov.summary}."
+    puts
+    puts
+    puts "Would you like to see another movie?"
     end
   end
 end
