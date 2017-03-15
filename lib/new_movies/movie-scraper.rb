@@ -8,14 +8,14 @@ class NewMovies::Movie_Scraper
   end
 
   def self.namescrape
-    page = Nokogiri::HTML(open('http://www.movieinsider.com/movies/coming-soon')) #movieinsider/new-movies main
+    page = Nokogiri::HTML(open('http://www.movieinsider.com/movies/coming-soon')) #page to scrape
 
     page.css('div.panel').each do |mov|
       movie = NewMovies::Movie_Scraper.new()
 
-      movie.name     =  mov.css('h4.media-heading a').text.strip.split("  ").join
-      movie.starring =  mov.css('p.credits').text.strip.split("   ") #should probably try to isolate these as individual names in array
-      movie.summary  =  mov.css('div.show-more-hidden p.media-content').text.strip.split("  ").join
+      movie.name     =  mov.css('h4.media-heading a').text.strip
+      movie.starring =  mov.css('p.credits').text.strip
+      movie.summary  =  mov.css('div.show-more-hidden p.media-content').text.strip #issue: short summaries not listed due to using diff div.
       movie.genre    =  mov.css('p span.label').text.strip
       movie.rating   =  mov.css('ins.mpaa').to_s.scan(/\d/).join #mpaa rating as "int"
 
