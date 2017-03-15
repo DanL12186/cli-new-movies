@@ -1,15 +1,16 @@
 class NewMovies::CLI
 
   def call
-    puts
-    puts "Movie List:"
-    puts
-    movie_list  #wiil call a list of all movies in a particular visual format
+    NewMovies::Movie_Scraper.namescrape #was handled by the @@all ||= scrape in the example. Probably shouldn't *really* have this here, but...
+    movie_list  #calls a list of all movies; Movie (Genre)
     display_movie_details #calls display_movie_details in some future form
   end
 
-  def movie_list #borrowed code from example
-    NewMovies::Movie_Scraper.all.each.with_index(1) do |mov, num|
+  def movie_list
+    puts
+    puts "Movie List:"
+    puts
+    NewMovies::Movie_Scraper.all.each.with_index(1) do |mov, num| #borrowed code from example
       puts "#{num}. #{mov.name} (#{mov.genre})"
     end
   end
