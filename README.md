@@ -2,8 +2,6 @@
 
 This gem scrapes the MovieInsider website's "Coming soon" page for pertinent information, and allows a user to list new and upcoming movies, and display more details about any individual movie they desire. It scrapes the names of each new movie, and its corresponding genre, summary, MPAA rating, and list of actors who star in it.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Type bin/new-movies into your terminal, then follow the prompts as they appear on your screen.
 
 ## Development
 
