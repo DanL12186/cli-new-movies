@@ -9,18 +9,17 @@ class NewMovies::CLI
 
   def movie_list
     puts
-    puts "Movie List:"
+    puts "############### Movie List: ################"
     puts
     NewMovies::Movie_Scraper.all.each.with_index(1) do |mov, num| #borrowed code from example
       puts "#{num}. #{mov.name} (#{mov.genre})"
     end
+    puts "############################################"
   end
 
   def display_movie_details #this badly needs to be cleaned up and and abstracted. Too much unrelated funcationality going on in one method.
     input = nil
-    puts
-    puts "Enter the number of the movie you want more info on, or type 'exit' to quit."
-    puts
+    puts "\nEnter the number of the movie you want more info on, or type 'exit' to quit.\n\n"
 
     until input == "exit"
     input = gets.strip.downcase
@@ -30,7 +29,7 @@ class NewMovies::CLI
     if input != 'exit' && input != "list" && !input.to_i.between?(1,(NewMovies::Movie_Scraper.all.length))
       puts "\nUnrecognized command. Enter the number of the movie you wish to learn more about, type 'list' to view list, or 'exit' to quit.\n"
     elsif input != 'exit'
-      puts
+      puts "\n*******************************************************"
       puts "#{mov.name} (#{mov.genre}) - Starring: #{mov.starring} \n\nSummary: #{mov.summary}"
       puts
 
