@@ -4,6 +4,7 @@ class NewMovies::CLI
     NewMovies::Movie_Scraper.namescrape #was handled by the @@all ||= scrape in the example. Probably shouldn't *really* have this here, but...
     movie_list  #x. Movie (Genre)
     display_movie_details
+    puts "\nGoodbye!"
   end
 
   def movie_list
@@ -28,16 +29,16 @@ class NewMovies::CLI
 
     if input != 'exit' && input != "list" && !input.to_i.between?(1,(NewMovies::Movie_Scraper.all.length))
       puts "\nUnrecognized command. Enter the number of the movie you wish to learn more about, type 'list' to view list, or 'exit' to quit.\n"
-    else
+    elsif input != 'exit'
       puts
       puts "#{mov.name} (#{mov.genre}) - Starring: #{mov.starring} \n\nSummary: #{mov.summary}"
       puts
 
-    if mov.rating == "No rating available"
-      puts mov.rating
-    else
-      puts "Rated #{mov.rating}"
-    end
+      if mov.rating == "No rating available"
+        puts mov.rating
+      else
+        puts "Rated #{mov.rating}"
+      end
 
     if input == 'list'
       movie_list
@@ -51,4 +52,5 @@ class NewMovies::CLI
     end
   end
 end
+
 end
